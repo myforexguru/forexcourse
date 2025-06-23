@@ -27,13 +27,50 @@
     <p><span class="price">₦8,500</span> / <span class="usd-price">$10</span></p>
 
     <div class="btn-group">
-      <a href="#" class="btn ngn-btn">Pay in Naira (₦)</a>
-      <a href="#" class="btn usd-btn">Pay in USD ($)</a>
+      <button class="btn ngn-btn" onclick="payInNaira()">Pay in Naira (₦)</button>
+      <button class="btn usd-btn" onclick="payInUSD()">Pay in USD ($)</button>
     </div>
   </section>
 
   <footer>
     <p>© 2025 Forex Course by Asian Range. Powered by Project Overdrive.</p>
   </footer>
+
+  <!-- PAYSTACK SCRIPT -->
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+  <script>
+    function payInNaira() {
+      var handler = PaystackPop.setup({
+        key: 'pk_live_xxxxxxxxxxxxx', // 🔁 Replace with your Paystack public key
+        email: 'customer@example.com',
+        amount: 850000, // ₦8,500 in kobo
+        currency: "NGN",
+        callback: function(response){
+          alert('Payment successful! Ref: ' + response.reference);
+          // TODO: Trigger Google Sheets + email script here
+        },
+        onClose: function(){
+          alert('Payment cancelled');
+        }
+      });
+      handler.openIframe();
+    }
+
+    function payInUSD() {
+      var handler = PaystackPop.setup({
+        key: 'pk_live_xxxxxxxxxxxxx', // 🔁 Same public key
+        email: 'customer@example.com',
+        amount: 1000, // $10 in cents
+        currency: "USD",
+        callback: function(response){
+          alert('USD Payment successful! Ref: ' + response.reference);
+        },
+        onClose: function(){
+          alert('USD Payment cancelled');
+        }
+      });
+      handler.openIframe();
+    }
+  </script>
 </body>
 </html>
