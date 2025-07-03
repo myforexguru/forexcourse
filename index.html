@@ -9,7 +9,7 @@
 <body>
   <header class="header">
     <h1>Master Forex Trading in 7 Days</h1>
-    <p>Access our premium crash course + mentorship + strategy pack.</p>
+    <p>Access our premium crash course, mentorship & strategy pack.</p>
   </header>
 
   <section class="course-details">
@@ -24,7 +24,7 @@
 
   <section class="pricing">
     <h2>Enroll Now</h2>
-    <p><span class="price">₦8,500</span> / <span class="usd-price">$10</span></p>
+    <p><span class="price">₦200</span> / <span class="usd-price">$0.20</span></p>
 
     <div class="btn-group">
       <button class="btn ngn-btn" onclick="payInNaira()">Pay in Naira (₦)</button>
@@ -41,13 +41,13 @@
   <script>
     function payInNaira() {
       var handler = PaystackPop.setup({
-        key: 'pk_live_2c0f4dab2bd82ec488da502f3b8c8f4a4d2b8383', // 🔁 Replace with your Paystack public key
-        email: 'customer@example.com',
-        amount: 850000, // ₦8,500 in kobo
+        key: 'pk_live_2c0f4dab2bd82ec488da502f3b8c8f4a4d2b8383', // ✅ Live public key
+        email: 'customer@example.com', // Replace dynamically if you have a form
+        amount: 20000, // kobo! ₦200 = 20000 kobo
         currency: "NGN",
         callback: function(response){
           alert('Payment successful! Ref: ' + response.reference);
-          // TODO: Trigger Google Sheets + email script here
+          // TODO: Trigger webhook or Google Sheets + email script
         },
         onClose: function(){
           alert('Payment cancelled');
@@ -58,9 +58,9 @@
 
     function payInUSD() {
       var handler = PaystackPop.setup({
-        key: 'pk_live_xxxxxxxxxxxxx', // 🔁 Same public key
+        key: 'pk_live_2c0f4dab2bd82ec488da502f3b8c8f4a4d2b8383', // ✅ Same live key
         email: 'customer@example.com',
-        amount: 1000, // $10 in cents
+        amount: 2000, // $0.20 in cents → $0.20 = 2000 kobo equivalent (for test)
         currency: "USD",
         callback: function(response){
           alert('USD Payment successful! Ref: ' + response.reference);
