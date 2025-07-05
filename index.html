@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Forex Course | Learn & Earn</title>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -64,8 +64,7 @@
         },
         callback: function(response){
           alert('Payment successful! Ref: ' + response.reference);
-          // TODO: Call webhook/Google Sheet + auto-email here
-          window.location.href = "https://docs.google.com/document/d/1JYRzeVnTf0csWSckENAvRmkhVeuXsk7mBaUbrdEbdDA/edit?usp=sharing"; // replace with your real link
+          window.location.href = "thank-you.html";
         },
         onClose: function(){
           alert('Payment cancelled');
