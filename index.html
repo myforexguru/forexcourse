@@ -24,18 +24,15 @@
 
   <section class="pricing">
     <h2>Enroll Now</h2>
-    <p><span class="price">₦200</span> / <span class="usd-price">$0.20</span></p>
+    <p><span class="price">₦200</span></p>
 
-    <!-- Name & Email Form -->
     <div class="form-group">
       <input type="text" id="name" placeholder="Your Name" required />
       <input type="email" id="email" placeholder="Your Email" required />
     </div>
 
-    <!-- Payment Buttons -->
     <div class="btn-group">
-      <button class="btn ngn-btn" onclick="payInNaira()">Pay in Naira (₦)</button>
-      <button class="btn usd-btn" onclick="payInUSD()">Pay in USD ($)</button>
+      <button class="btn ngn-btn" onclick="payInNaira()">Pay Now (₦)</button>
     </div>
   </section>
 
@@ -47,10 +44,10 @@
   <script src="https://js.paystack.co/v1/inline.js"></script>
   <script>
     function payInNaira() {
-      var name = document.getElementById('name').value.trim();
-      var email = document.getElementById('email').value.trim();
+      var name = document.getElementById('name').value;
+      var email = document.getElementById('email').value;
 
-      if (!name || !email) {
+      if (name === '' || email === '') {
         alert('Please enter your name and email.');
         return;
       }
@@ -62,53 +59,16 @@
         currency: "NGN",
         metadata: {
           custom_fields: [
-            {
-              display_name: "Customer Name",
-              variable_name: "customer_name",
-              value: name
-            }
+            { display_name: "Customer Name", variable_name: "customer_name", value: name }
           ]
         },
-        callback: function(response) {
+        callback: function(response){
           alert('Payment successful! Ref: ' + response.reference);
-          // ✅ Webhook auto handles logging + email
+          // TODO: Call webhook/Google Sheet + auto-email here
+          window.location.href = "https://docs.google.com/document/d/1JYRzeVnTf0csWSckENAvRmkhVeuXsk7mBaUbrdEbdDA/edit?usp=sharing"; // replace with your real link
         },
-        onClose: function() {
-          alert('Payment cancelled.');
-        }
-      });
-      handler.openIframe();
-    }
-
-    function payInUSD() {
-      var name = document.getElementById('name').value.trim();
-      var email = document.getElementById('email').value.trim();
-
-      if (!name || !email) {
-        alert('Please enter your name and email.');
-        return;
-      }
-
-      var handler = PaystackPop.setup({
-        key: 'pk_live_2c0f4dab2bd82ec488da502f3b8c8f4a4d2b8383',
-        email: email,
-        amount: 2000, // $0.20 in cents equivalent
-        currency: "USD",
-        metadata: {
-          custom_fields: [
-            {
-              display_name: "Customer Name",
-              variable_name: "customer_name",
-              value: name
-            }
-          ]
-        },
-        callback: function(response) {
-          alert('USD Payment successful! Ref: ' + response.reference);
-          // ✅ Same webhook logs USD too
-        },
-        onClose: function() {
-          alert('USD Payment cancelled.');
+        onClose: function(){
+          alert('Payment cancelled');
         }
       });
       handler.openIframe();
